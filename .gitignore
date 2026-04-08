@@ -2,4 +2,5 @@ program
 .vscode
 __pycache__
 desc_rec
+calc.txt
 
