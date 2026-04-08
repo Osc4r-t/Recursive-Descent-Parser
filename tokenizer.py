@@ -185,10 +185,11 @@ def printTokens(_tokens):
         #   que el parser de este proyecto usa para evaluar una linea a la vez.
         if token_type == "leap":
             linea += 1
-            print(f"Linea {linea}:  ", end="  ")
+            print(f"\nLinea {linea}:  ", end="  ")
             i += 1
             continue
 
         # Se imprime el lexema y su categoria para facilitar la inspeccion.
-        print(f"{lexeme} {token_type}", end="  ")
+        print(f"{lexeme} ({token_type})", end="  ")
         i += 1
+    print()

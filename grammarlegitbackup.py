@@ -149,10 +149,9 @@ def S(tokens):
             tokens.next()
             if tokens.current("token") == "EOF":
                 return True
-            else:
-                return S(tokens)
+            return S(tokens)
         # Si no hay un salto de linea, se devuelve True para indicar que la produccion se cumplio. Esto cubre el caso de una sola expresion sin saltos de linea.
-        elif tokens.current("token") == "EOF":
+        elif (tokens.current("token") == "EOF"):
             return True
         else:
             return False
