@@ -141,6 +141,7 @@ def printError(expected, token_actual, index):
 
 # no implementation, just parsing
 def S(tokens):
+    print("S()")
     # El no terminal S es el punto de entrada del parser. Maneja la estructura general de la entrada, que puede consistir en varias expresiones separadas por saltos de linea.
     if E(tokens):
         # Si E se resuelve correctamente, se verifica si el siguiente token es un salto de linea (leap). Si es asi, se consume ese token y se llama recursivamente a S para procesar la siguiente expresion. Esto permite manejar multiples lineas de entrada.
@@ -149,19 +150,19 @@ def S(tokens):
             tokens.next()
             if tokens.current("token") == "EOF":
                 return True
-            else:
-                return S(tokens)
+            return S(tokens)
         # Si no hay un salto de linea, se devuelve True para indicar que la produccion se cumplio. Esto cubre el caso de una sola expresion sin saltos de linea.
-        elif tokens.current("token") == "EOF":
+        elif (tokens.current("token") == "EOF"):
             return True
         else:
-            return False
+            printError( 'EOF', tokens.current("token"), tokens.pos)
     # Si E no se resuelve, se reporta un error sintactico indicando que se esperaba una expresion.
     else:
         printError( 'E', tokens.current("token"), tokens.pos)
 
 
 def E(tokens):
+    print("E()")
     # El no terminal E se encarga de manejar la precedencia de los operadores de suma y resta. Se implementa con una produccion que llama a T para resolver el primer termino, y luego a E' para manejar los operadores adicionales.
     if T(tokens):
         # Si T se resuelve correctamente, se llama a E' para verificar si hay operadores de suma o resta adicionales. E' se encarga de manejar la asociatividad izquierda de estos operadores.
@@ -171,6 +172,7 @@ def E(tokens):
         printError( 'T', tokens.current("token"), tokens.pos)
 
 def Eprime(tokens):
+    print("Eprime()")
     # El no terminal E' maneja la asociatividad izquierda de los operadores de suma y resta.
     if tokens.current("token") == 'op_add':
         tokens.next()
@@ -200,6 +202,7 @@ def Eprime(tokens):
         return True
 
 def T(tokens):
+    print("T()")
     # El no terminal T se encarga de manejar la precedencia de los operadores de multiplicacion, division y modulo.
     if P(tokens):
         # Si P se resuelve correctamente, se llama a T' para verificar si hay operadores de multiplicacion, division o modulo.
@@ -209,6 +212,7 @@ def T(tokens):
         printError( 'P', tokens.current("token"), tokens.pos)
 
 def Tprime(tokens):
+    print("Tprime()")
     # El no terminal T' maneja la asociatividad izquierda de los operadores de multiplicacion, division y modulo.
     if tokens.current("token") == 'op_mult':
         # Si el token actual es un operador de multiplicacion, se consume ese token y se llama a P para resolver el siguiente factor.
@@ -252,6 +256,7 @@ def Tprime(tokens):
         return True
 
 def P(tokens):
+    print("P()")
     # El no terminal P se encarga de manejar la precedencia del operador de potencia.
     if F(tokens):
         # Si F se resuelve correctamente, se llama a P' para verificar si hay una potencia.
@@ -273,6 +278,7 @@ def Pprime(tokens):
 
         return True
 def F(tokens):
+    print("F()") 
     # El no terminal F tiene varias producciones, por lo que se implementa con "if" para decidir cual aplicar.
     if tokens.current("token") == 'op_sub':
         tokens.next()
@@ -314,6 +320,7 @@ def F(tokens):
 
 
 def N(tokens):
+    print("N()")
     if (tokens.current("token") in ["const_int", "const_float", "const_realn", "const_hex"]):
         tokens.next()
         
