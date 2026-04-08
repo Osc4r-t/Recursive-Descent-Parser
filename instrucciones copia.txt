@@ -1,0 +1,13 @@
+S   -> L
+
+L   -> E leap L | E | leap L
+
+E   -> T E'
+E'  -> op_add T E' | op_sub T E' | ε
+
+T   -> F T'
+T'  -> op_mult F T' | op_div F T' | ε
+
+F   -> lparen E rparen | N
+
+N   -> const_int | const_float
