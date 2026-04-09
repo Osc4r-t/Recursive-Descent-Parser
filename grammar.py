@@ -10,7 +10,6 @@ re_table = {
     'op_expo': r"^\*\*",
     'op_sqrt': r"^sqrt",
     'const_float': r"^[0-9]+\.[0-9]+\b",
-
     'const_realn': r'^([0-9]+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)\b',
     'const_hex': r"^0x[0-9a-fA-F]+\b",
     'const_int': r"^[0-9]+\b",
@@ -20,7 +19,7 @@ re_table = {
 }
 
 # Tokenizacion inicial del archivo de entrada.
-parsed_tokens = token.tokenize("calc.txt", re_table, False)
+parsed_tokens = token.tokenize("calc.txt", re_table, True)
 token.printTokens(parsed_tokens)
 class Tokens:
 
@@ -45,7 +44,7 @@ class Tokens:
 
     def next(self):
         # Avanza al siguiente token, pero evitando salir de rango.
-        print(f"Avanzando a token: {self.current('token')}")  # Depuracion: muestra el token al avanzar
+        print(f"token: {self.current('token')} | lexeme: {self.current('lexeme')}")  # Depuracion: muestra el token al avanzar
         if self.pos < len(self.tokens) - 1:
             self.pos += 1
         return self.current("token")
